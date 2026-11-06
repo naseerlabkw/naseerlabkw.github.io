@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>مختبرات العلوم</title>
+<meta name="description" content="بوابة مختبرات العلوم — مدرسة ناصر سعود الصباح الابتدائية بنين">
+<meta name="theme-color" content="#0B2456">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="مختبرات العلوم">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+  html,body{margin:0;height:100%;background:#FAF5EE;overflow:hidden}
+  #app{position:fixed;inset:0;width:100%;height:100%;border:0;display:block;
+       padding-top:env(safe-area-inset-top);box-sizing:border-box;background:#FAF5EE}
+  #splash{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+          gap:14px;background:#FAF5EE;font-family:system-ui,sans-serif;color:#0B2456;transition:opacity .4s}
+  #splash img{width:110px;height:110px;border-radius:24px}
+  #splash b{font-size:20px}
+  #splash.hide{opacity:0;pointer-events:none}
+</style>
+</head>
+<body>
+<div id="splash"><img src="icon-512.png" alt=""><b>مختبرات العلوم</b><span>جارٍ التحميل…</span></div>
+<iframe id="app" title="بوابة مختبرات العلوم" allow="clipboard-write"></iframe>
+<script>
+  var EXEC='https://script.google.com/macros/s/AKfycbyzg7ry8cavLEpF34S-4SGCTPHQ7Q2cscOmLJQwIyBNapqZTlLRCt64l6kaCQCfMBM4/exec';
+  var f=document.getElementById('app'), s=document.getElementById('splash'), tok='';
+  try{ tok=localStorage.getItem('labTok')||''; }catch(e){}
+  if(!/^[a-f0-9]{32,}$/.test(tok)) tok='';
+  f.src=EXEC+(tok?('?k='+tok):'');
+  window.addEventListener('message',function(e){
+    if(!/(^https:\/\/script\.google\.com$)|(\.googleusercontent\.com$)/.test(e.origin)) return;
+    var d=e.data; if(!d||typeof d.labTok!=='string') return;
+    try{ if(/^[a-f0-9]{32,}$/.test(d.labTok)) localStorage.setItem('labTok',d.labTok); else if(d.labTok==='') localStorage.removeItem('labTok'); }catch(err){}
+  });
+  f.addEventListener('load',function(){ setTimeout(function(){ s.className='hide'; },300); });
+  setTimeout(function(){ s.className='hide'; },8000);
+</script>
+</body>
+</html>
